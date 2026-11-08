@@ -1,0 +1,8 @@
+-- ScamSense Database Schema
+--
+-- Satyam: users, scans, administrator seed
+-- Ishika: quizzes, questions, options, attempts, articles
+-- Gayatri: contact_messages
+--
+-- All contributors must preserve existing table definitions.
+-- This file will contain the complete consolidated schema.
