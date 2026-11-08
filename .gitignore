@@ -1,7 +1,17 @@
+# Dependencies
+node_modules/
 **/node_modules/
+
+# Build output
+dist/
 **/dist/
+**/build/
+
+# Environment secrets
 .env
 .env.*
 !.env.example
-coverage/
+
+# Logs and test output
 *.log
+coverage/
