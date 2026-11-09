@@ -1,16 +1,3 @@
-// ============================================================
-// Footer.tsx — Reusable Platform Footer Component
-// ============================================================
-// Layout from Excalidraw Wireframe:
-//   Left:  ScamSense (prominent title)
-//   Right: Two balanced columns:
-//          Column 1: Home, About, Contact
-//          Column 2: Scan, Quiz
-//
-// Designed to look clean, student-crafted, and spacious
-// without corporate boilerplate (e.g. "All rights reserved").
-// ============================================================
-
 import React from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";

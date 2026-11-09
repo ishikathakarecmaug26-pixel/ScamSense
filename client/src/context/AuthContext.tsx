@@ -1,17 +1,3 @@
-// ============================================================
-// AuthContext.tsx — Global Authentication Context
-// ============================================================
-// Manages the user's logged-in state across the whole React application.
-// Connects with backend endpoints:
-//   - POST /api/auth/login    (sets httpOnly JWT cookie)
-//   - POST /api/auth/register (creates new user, sends welcome email)
-//   - POST /api/auth/logout   (clears JWT cookie)
-//   - GET  /api/auth/me       (verifies session on page reload)
-//
-// Key Rule: Always pass { credentials: "include" } in fetch calls
-// so the browser automatically sends and receives the httpOnly cookie!
-// ============================================================
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export interface User {

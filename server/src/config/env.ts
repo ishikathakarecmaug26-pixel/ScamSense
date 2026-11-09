@@ -13,9 +13,9 @@ const envSchema = z.object({
     DB_NAME:z.string().min(1).default("scamsense"),
     //jwt config
     JWT_SECRET:z.string().min(32,"JWT secret must be 32 chars long"),//added issue msg
-    JWT_EXPRESS_IN:z.string().default("1h"),
+    JWT_EXPIRES_IN:z.string().default("1d"),
     //goggle api key
-    GOGGLE_SAFE_BROWSING_API_KEY:z.string().optional().default(""),
+    GOOGLE_SAFE_BROWSING_API_KEY:z.string().optional().default(""),
     //smtp config
     SMTP_HOST:z.string().optional().default(""),
     SMTP_PORT:z.coerce.number().int().positive().default(587),

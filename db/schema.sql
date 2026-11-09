@@ -3,25 +3,11 @@
 -- Satyam: users, scans, administrator seed
 -- Ishika: quizzes, questions, options, attempts, articles
 -- Gayatri: contact_messages
---
--- All contributors must preserve existing table definitions.
--- This file will contain the complete consolidated schema.
--- ============================================================
--- schema.sql — Database Schema for ScamSense
--- ============================================================
--- Run this file once to set up the database and tables:
---   mysql -u root -p < schema.sql
--- ============================================================
 
--- Create the database if it doesn't already exist
-CREATE DATABASE IF NOT EXISTS scamsense_db;
+CREATE DATABASE IF NOT EXISTS scamsense;
 
--- Switch to our database
-USE scamsense_db;
+USE scamsense;
 
--- ============================================================
--- 1. Users table — Stores user accounts
--- ============================================================
 CREATE TABLE IF NOT EXISTS users (
   id          INT AUTO_INCREMENT PRIMARY KEY,               -- unique user ID, auto-incremented
   name        VARCHAR(50)  NOT NULL,                        -- user's display name (2-50 chars)
@@ -32,21 +18,9 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- last update time
 );
 
--- ============================================================
--- Default admin account
--- ============================================================
--- Email:    admin@scamsense.com
--- Password: Admin@123
--- The hash below was generated with: bcrypt.hash("Admin@123", 10)
--- NOTE: Change this default admin password immediately before public deployment!
 INSERT IGNORE INTO users (id, name, email, password, role) VALUES
 (1, 'Admin', 'admin@scamsense.com', '$2b$10$crmpDgnRTcoB7Z8Xwl3eSeltC0RNWl6rpikU6KaOEwJbo/PRhR2mu', 'admin');
 
--- ============================================================
--- 2. Articles table — Stores educational cybersecurity articles
--- ============================================================
--- Articles are created and managed by admins (Content Managers).
--- Regular users and visitors can browse and read them.
 CREATE TABLE IF NOT EXISTS articles (
   id          INT AUTO_INCREMENT PRIMARY KEY,               -- unique article ID
   title       VARCHAR(150) NOT NULL,                        -- article title (3-150 characters)
@@ -58,9 +32,6 @@ CREATE TABLE IF NOT EXISTS articles (
   FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 3. Quizzes table — Stores quiz categories / topics
--- ============================================================
 CREATE TABLE IF NOT EXISTS quizzes (
   id          INT AUTO_INCREMENT PRIMARY KEY,               -- unique quiz ID
   title       VARCHAR(150) NOT NULL,                        -- quiz title (e.g., 'Phishing Awareness Quiz')
@@ -70,9 +41,6 @@ CREATE TABLE IF NOT EXISTS quizzes (
   updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- timestamp of last edit
 );
 
--- ============================================================
--- 4. Questions table — Stores questions belonging to a quiz
--- ============================================================
 CREATE TABLE IF NOT EXISTS questions (
   id            INT AUTO_INCREMENT PRIMARY KEY,             -- unique question ID
   quiz_id       INT NOT NULL,                               -- foreign key linking question to a quiz
@@ -82,9 +50,6 @@ CREATE TABLE IF NOT EXISTS questions (
   FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 5. Question Options table — Stores multiple choice options
--- ============================================================
 CREATE TABLE IF NOT EXISTS question_options (
   id          INT AUTO_INCREMENT PRIMARY KEY,               -- unique option ID
   question_id INT NOT NULL,                                 -- foreign key linking option to a question
@@ -93,9 +58,6 @@ CREATE TABLE IF NOT EXISTS question_options (
   FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 6. Quiz Attempts table — Tracks user scores and history
--- ============================================================
 CREATE TABLE IF NOT EXISTS quiz_attempts (
   id              INT AUTO_INCREMENT PRIMARY KEY,           -- unique attempt record ID
   user_id         INT NOT NULL,                             -- foreign key linking attempt to user
@@ -107,11 +69,6 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
   FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- SEED DATA — Sample Articles & Quizzes for Demonstration
--- ============================================================
-
--- Seed Sample Articles (authored by Admin id: 1)
 INSERT IGNORE INTO articles (id, title, content, category, author_id) VALUES
 (
   1,
@@ -223,12 +180,6 @@ INSERT IGNORE INTO question_options (id, question_id, option_text, is_correct) V
 (19, 5, 'Your phone will download a verification certificate', FALSE),
 (20, 5, 'A one-time OTP will be generated by the bank', FALSE);
 
-
--- ============================================================
--- 7. Contact Messages table — Stores user contact inquiries
--- ============================================================
--- Allows public visitors and registered users to submit questions
--- or report cyber incidents. Admins can review inquiries.
 CREATE TABLE IF NOT EXISTS contact_messages (
   id         INT AUTO_INCREMENT PRIMARY KEY,               -- unique message ID
   name       VARCHAR(50)  NOT NULL,                        -- sender's name (2-50 chars)
@@ -255,12 +206,6 @@ INSERT IGNORE INTO contact_messages (id, name, email, subject, message) VALUES
   'The UPI quiz was very informative! It helped my parents understand why they should never enter their PIN to receive money from OLX buyers.'
 );
 
-
--- ============================================================
--- 8. Scans table — Stores scam analysis history
--- ============================================================
--- Authenticated scans are saved linked to user_id.
--- Guest scans are analyzed on-the-fly (never saved to database).
 CREATE TABLE IF NOT EXISTS scans (
   id               INT AUTO_INCREMENT PRIMARY KEY,          -- unique scan ID
   user_id          INT NOT NULL,                            -- foreign key to users(id)

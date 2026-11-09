@@ -1,20 +1,3 @@
-// ============================================================
-// ScanPage.tsx — Scam Message & URL Analyzer Page
-// ============================================================
-// Layout exactly matching the Excalidraw Wireframe:
-//   - Header:
-//       Centered "Validate Your Message" heading
-//       Centered "Check here if msg is a scam or not?" subtitle
-//   - Main Card (Pearl White #F2F4FE):
-//       Left Side:  "Enter Msg" input + "Analyze" button
-//       Right Side: "MSG report"
-//                   - Verdict Box (HIGH_RISK, SUSPICIOUS, UNVERIFIED, SAFE)
-//                   - WHY verdict / BODY (Regex findings + Google Safe Browsing)
-//                   - DISCLAIMER box
-//   - Bottom Section:
-//       "SCAN HISTORY" table/list for logged-in users (or guest prompt)
-// ============================================================
-
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";

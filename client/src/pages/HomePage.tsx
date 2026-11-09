@@ -1,13 +1,3 @@
-// ============================================================
-// HomePage.tsx — Home Page Component
-// ============================================================
-// Layout exactly matching the Excalidraw Wireframe:
-//   - Left:  Hero Text title + Subtitle
-//   - Right: Two stacked CTA buttons:
-//              1. Learn More (links to /about)
-//              2. Check Scam (primary CTA)
-// ============================================================
-
 import React from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
